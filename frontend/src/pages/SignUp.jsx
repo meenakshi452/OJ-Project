@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   const handleChangeName= (e) => {
     setName(e.target.value)
   }
@@ -19,8 +21,22 @@ export default function SignUp() {
   async function handleSubmit({name, email, password}, e){
     e.preventDefault();
     const formData = {name, email, password}
-    const response = await axios.post("http://localhost:8000/signup", formData)
-    console.log(response.data);
+    const res = await fetch('http://localhost:8000/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    console.log(res);
+    const data = await res.json();
+    setError(data)
+    if(data.success === true){
+      const tok = localStorage.setItem("token", data.token);
+      const email = localStorage.setItem("email", data.user.email);
+      // console.log(res);
+      navigate('/');
+    }
   }
 
   return (
@@ -58,6 +74,7 @@ export default function SignUp() {
             <span className='text-blue-700 hover:opacity-85 cursor-pointer'>Sign In</span>
           </Link>
       </div>
+      <p className='text-red-500'>{error ? error.message: ""}</p>
     </div>
   )
 }

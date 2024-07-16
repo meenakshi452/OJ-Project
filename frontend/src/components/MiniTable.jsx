@@ -17,6 +17,11 @@ export default function MiniTable() {
             title: 'Contest',
             score: '200',
         },
+        {
+            id: '106',
+            title: 'Contest',
+            score: '200',
+        },
         // More people...
     ];
     return (

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Popup from 'reactjs-popup';
-import SignIn from '../pages/SignIn';
 
 
 export default function Navbar() {
@@ -14,8 +12,10 @@ export default function Navbar() {
     }
   }, []);
 
-  const handleSignout = () => {
-    localStorage.clear();
+  const handleSignout = async () => {
+    // localStorage.clear();
+    localStorage.removeItem("token");
+    await fetch('http://localhost:8000/logout');
     setLoggedIn(false);
   }
 
@@ -28,7 +28,12 @@ export default function Navbar() {
         </h1>
         <div className="flex items-center space-x-6">
           
-        {!loggedIn ? (
+        {loggedIn ? (
+          <div>
+            <button onClick={handleSignout} className='bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>Signout</button>
+          </div>
+          
+        ) : (
           <div className='flex gap-2'>
             <Link
               to="/signin"
@@ -42,10 +47,6 @@ export default function Navbar() {
             >
               Signup
             </Link>
-          </div>
-        ) : (
-          <div>
-            <button onClick={handleSignout} className='bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>Signout</button>
           </div>
         )}
         </div>

@@ -8,33 +8,36 @@ const signup = async (req, res)=>{
     try {
         const {name, email, password} = req.body;
         if(!(name && email && password)){
-            return res.status(400).send({
-                message: "Please enter all the required fields",
-                success:  false
-            });
+            const error = new Error();
+            error.statusCode = 400;
+            error.message = "Please enter all the required fields";
+            error.success = false;
+            return res.status(400).json(error);
         }
         const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()-+]).*$/;
         if (!passwordRegex.test(password)) {
-        res.status(400).send({ 
-            message: 'Password must contain at least one special character and one number',
-            success: false
-        });
+            const error = new Error();
+            error.statusCode = 400;
+            error.message = "Password must contain at least one special character and one number";
+            error.success = false;
+            return res.status(400).json(error);
         }
 
         if(password.length < 8){
-            return res.status(400).send({
-                message: "Password should be at least 8 characters",
-                success: false
-        });
+            const error = new Error();
+            error.statusCode = 400;
+            error.message = "Password should be at least 8 characters";
+            error.success = false;
+            return res.status(400).json(error);
         }
         const existingUser = await  User.findOne({email});
         if(existingUser){
-            return res.status(400).send({
-                message: "User already exists",
-                success: false
-            });
+            const error = new Error();
+            error.statusCode = 400;
+            error.message = "User already exists";
+            error.success = false;
+            return res.status(400).json(error);
         }
-
         const hashPassword = bcrypt.hashSync(password, 10);
         console.log(hashPassword);
 

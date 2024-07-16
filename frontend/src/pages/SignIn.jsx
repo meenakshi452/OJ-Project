@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { createContext, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignIn() {
+  const UserContext = createContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -28,7 +29,8 @@ export default function SignIn() {
     setError(data)
     if(data.success === true){
       const tok = localStorage.setItem("token", data.token);
-      console.log(res);
+      const email = localStorage.setItem("email", data.user.email);
+      // console.log(res);
       navigate('/');
     }
   }

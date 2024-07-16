@@ -33,7 +33,7 @@ dotenv.config();
             return res.status(403).json(error);
         }
         const token = jwt.sign({id:user._id, email}, process.env.SECRET_KEY, {
-            expiresIn: "1h"
+            expiresIn: "5s"
         });
         const expiryDate = new Date(Date.now() + 3600000); // 1 hour
         user.password = undefined;

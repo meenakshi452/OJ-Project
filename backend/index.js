@@ -1,10 +1,7 @@
 import express from 'express'
 import DBConnection from './database/db.js';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import bcrypt from 'bcryptjs';
 import router from './routes/route.js';
-import User from './models/Users.js';
 dotenv.config();
 
 
