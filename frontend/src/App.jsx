@@ -4,6 +4,7 @@ import Home from "./pages/Home"
 import SignIn from "./pages/SignIn"
 import Profile from "./pages/Profile"
 import Problem from "./pages/Problem"
+import ProblemsList from "./components/ProblemsList"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/problem" element={<Problem/>}/>
+          <Route path="/problemList" element={<ProblemsList/>}/>
       </Routes>
     </BrowserRouter>
   )

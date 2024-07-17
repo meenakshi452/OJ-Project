@@ -20,9 +20,18 @@ const CRUDProblem = {
             error.success = false;
             return res.status(400).json(error);
         }
-        //how to error handle when input or output of any test case is missing
 
-        
+        //error handle when input or output of any test case is missing
+        for (let i = 0; i < testCases.length; i++) {
+           if(!(testCases[i].input &&  testCases[i].output) ){
+            const error = new Error();
+            error.statusCode = 400;
+            error.message = "Please enter inputs and outputs of all test case";
+            error.success = false;
+            return res.status(400).json(error);
+           }
+        }
+
         const problem = await Problem.create({
             name,
             description,
@@ -44,8 +53,18 @@ const CRUDProblem = {
             name,
             description,
             difficulty,
-            testCases
+            testCases,
+            tok
           } = req.body;
+          const UserId = jwtDecode(tok).id;
+          const CreatorId = Problem.findById(req.params.id).createdBy;
+          if(!(UserId === CreatorId)){
+            const error = new Error();
+            error.statusCode = 400;
+            error.message = "You are not Authenticated to update this problem";
+            error.success = false;
+            return res.status(400).json(error);
+          }
           try {
             const existingProblem = await Problem.findByIdAndUpdate(
               req.params.id,
@@ -74,22 +93,32 @@ const CRUDProblem = {
 
     //delete a problem
     deleteProblem: async (req, res) => {
-          try {
-            const existingProblem = await Problem.findByIdAndDelete(
-              req.params.id
-            );
-      
-            if (!existingProblem)
-              return res.status(404).json({ error: "Problem not found!" });
-      
-            res.status(200).json({
-                message: "You have successfully deleted the problem",
-                success: true,
-                existingProblem,
-            })
-          } catch (error) {
-            res.status(500).json({ message: error.message });
-          }
+        // const {tok} = req.body;
+        // const UserId = jwtDecode(tok).id;
+        // const CreatorId = Problem.findById(req.params.id).createdBy;
+        // if(!(UserId === CreatorId)){
+        //     const error = new Error();
+        //     error.statusCode = 400;
+        //     error.message = "You are not Authenticated to delete this problem";
+        //     error.success = false;
+        //     return res.status(400).json(error);
+        // }
+        try {
+        const existingProblem = await Problem.findByIdAndDelete(
+            req.params.id
+        );
+    
+        if (!existingProblem)
+            return res.status(404).json({ error: "Problem not found!" });
+    
+        res.status(200).json({
+            message: "You have successfully deleted the problem",
+            success: true,
+            existingProblem,
+        })
+        } catch (error) {
+        res.status(500).json({ message: error.message });
+        }
 
     },
 

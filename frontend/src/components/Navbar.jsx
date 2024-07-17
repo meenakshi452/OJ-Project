@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 
 export default function Navbar() {
 
   const [loggedIn, setLoggedIn] = useState(false);
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    const tok = localStorage.getItem("token")
+    const res =  fetch('http://localhost:8000/profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': 'Bearer ' + tok,
+      },
+      body: JSON.stringify(),
+    });
+    console.log(tok);
+    if (res.json().success === true) {
       setLoggedIn(true);
     }
   }, []);

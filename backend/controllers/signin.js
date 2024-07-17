@@ -33,9 +33,9 @@ dotenv.config();
             return res.status(403).json(error);
         }
         const token = jwt.sign({id:user._id, email}, process.env.SECRET_KEY, {
-            expiresIn: "5s"
+            expiresIn: "20s"
         });
-        const expiryDate = new Date(Date.now() + 3600000); // 1 hour
+        const expiryDate = new Date(Date.now() + 20000); // 1 hour
         user.password = undefined;
         res.cookie('access_token', token, { httpOnly: true, expires: expiryDate }).status(201).json({
             message: "You have successfully signed in",

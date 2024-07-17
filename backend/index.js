@@ -3,9 +3,18 @@ import DBConnection from './database/db.js';
 import dotenv from 'dotenv';
 import router from './routes/route.js';
 dotenv.config();
-
+import cors from 'cors';
 
 const app = express()
+
+app.use(
+    cors({
+        origin: process.env.CLIENT_URL || 
+"http://localhost:5173",
+        credentials: true,
+    })
+);
+
 
 //middlewares
 app.use(express.json());
