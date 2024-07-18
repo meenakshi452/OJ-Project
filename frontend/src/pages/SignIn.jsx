@@ -22,6 +22,7 @@ export default function SignIn() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        credentials: 'include',
       },
       body: JSON.stringify(formDataa),
     });
@@ -29,7 +30,6 @@ export default function SignIn() {
     setError(data)
     if(data.success === true){
       const tok = localStorage.setItem("token", data.token);
-      const email = localStorage.setItem("email", data.user.email);
       // console.log(res);
       navigate('/');
     }

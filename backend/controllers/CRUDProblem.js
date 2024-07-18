@@ -4,9 +4,9 @@ import { jwtDecode } from "jwt-decode";
 const CRUDProblem = {
     //create new problem
     createProblem: async (req, res) => {
-        const { name, description, difficulty, testCases, tok } = req.body;
+        const { name, description, difficulty, inputDesc, outputDesc, tags, testCases, tok } = req.body;
         const createdBy = jwtDecode(tok).id;
-        if(!(name && description && difficulty && testCases && tok)){
+        if(!(name && description && difficulty && testCases && tok && inputDesc && outputDesc)){
             const error = new Error();
             error.statusCode = 400;
             error.message = "Please enter all the required fields";
@@ -36,6 +36,9 @@ const CRUDProblem = {
             name,
             description,
             difficulty,
+            inputDesc,
+            outputDesc,
+            tags,
             testCases,
             createdBy
         });

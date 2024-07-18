@@ -1,31 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
 
 
 export default function Navbar() {
 
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    const tok = localStorage.getItem("token")
-    const res =  fetch('http://localhost:8000/profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'authorization': 'Bearer ' + tok,
-      },
-      body: JSON.stringify(),
-    });
-    console.log(tok);
-    if (res.json().success === true) {
-      setLoggedIn(true);
+  useEffect( () => {
+    const handleLogin = async () =>{
+      const tok = localStorage.getItem("token")
+      const res = await fetch('http://localhost:8000/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': 'Bearer ' + tok,
+          credentials: 'include',
+        },
+        body: JSON.stringify(),
+      });
+      const data = await res.json();
+        console.log(data);
+      if (data.success === true) {
+        setLoggedIn(true);
+      }
+      else{
+        setLoggedIn(false);
+      }
     }
+    handleLogin()
   }, []);
 
   const handleSignout = async () => {
-    // localStorage.clear();
+    localStorage.clear();
     localStorage.removeItem("token");
-    await fetch('http://localhost:8000/logout');
+    await fetch('http://localhost:8000/logout', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     setLoggedIn(false);
   }
 

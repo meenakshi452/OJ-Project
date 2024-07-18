@@ -24,6 +24,17 @@ const problemSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    inputDesc:{
+      type: String,
+      required: true,
+    },
+    outputDesc:{
+      type: String,
+      required: true,
+    },
+    tags:{
+      type: [String],
+    },
     testCases:{
       type: [testCaseSchema],
       required: true,

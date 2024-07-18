@@ -13,7 +13,12 @@ const getProfile = async (req, res) =>{
             token,
             process.env.SECRET_KEY,
             (err, decoded) => {
-                if(err) return res.sendStatus(403);
+                if(err){
+                    const error = new Error();
+                    error.success = false;
+                    error.message = "Please Login Again" 
+                    return res.status(403).json(error);
+                } 
                 // res.user = decoded.username;
                 res.status(200).json({
                     success: true,
@@ -21,6 +26,15 @@ const getProfile = async (req, res) =>{
                 });
             }
         )
+
+        // const accessToken = req.cookies.access_token;
+        // if (!accessToken || !verifyAccessToken(accessToken)) {
+        //     return res.status(401).send('Unauthorized');
+        // }
+        // user = getUserFromAccessToken(accessToken);
+        // res.json(user.profile);
+
+
         // const tok  = req.body.token;
         // if (!tok) {
         //     const error = new Error();
