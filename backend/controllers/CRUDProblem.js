@@ -59,15 +59,15 @@ const CRUDProblem = {
             testCases,
             tok
           } = req.body;
-          const UserId = jwtDecode(tok).id;
-          const CreatorId = Problem.findById(req.params.id).createdBy;
-          if(!(UserId === CreatorId)){
-            const error = new Error();
-            error.statusCode = 400;
-            error.message = "You are not Authenticated to update this problem";
-            error.success = false;
-            return res.status(400).json(error);
-          }
+          // const UserId = jwtDecode(tok).id;
+          // const CreatorId = Problem.findById(req.params.id).createdBy;
+          // if(!(UserId === CreatorId)){
+          //   const error = new Error();
+          //   error.statusCode = 400;
+          //   error.message = "You are not Authenticated to update this problem";
+          //   error.success = false;
+          //   return res.status(400).json(error);
+          // }
           try {
             const existingProblem = await Problem.findByIdAndUpdate(
               req.params.id,

@@ -5,6 +5,8 @@ import SignIn from "./pages/SignIn"
 import Profile from "./pages/Profile"
 import Problem from "./pages/Problem"
 import ProblemsList from "./components/ProblemsList"
+import ProblemCreate from "./pages/ProblemCreate"
+import UpdateProblem from "./pages/UpdateProblem"
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/problem/:id" element={<Problem/>}/>
           <Route path="/problemList" element={<ProblemsList/>}/>
+          <Route path="/createProblem" element={<ProblemCreate/>}/>
+          <Route path="/updateProblem/:id" element={<UpdateProblem/>}/>
       </Routes>
     </BrowserRouter>
   )

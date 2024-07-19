@@ -64,8 +64,6 @@ export default function Problem () {
   return (
 
     <div className='flex md:flex-row flex-col m-4 gap-2 '>
-      {/* <div>{data && data.existingProblem.name}</div> */}
-
         <div className="question basis-1/2 border p-3 rounded-md shadow-md">
           <div className="problem-name text-3xl p-2">
           {data && data.existingProblem.name}

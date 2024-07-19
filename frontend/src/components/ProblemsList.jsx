@@ -27,12 +27,18 @@ const handleDelete = async (id, e) => {
 
 
 
+
 export default function ProblemsList() {
   const navigate = useNavigate();
 
   const handleClick = async (id, e) => {
     e.preventDefault();
     navigate('/problem/' + id)
+  }
+
+  const handleUpdate = async (id, e) => {
+    e.preventDefault();
+    navigate('/updateProblem/' + id)
   }
 
 
@@ -47,6 +53,11 @@ export default function ProblemsList() {
             delay: 200,
           }}
         />
+      </div>
+      <div className='flex flex-row justify-between mx-20'>
+      <button>Easy</button>
+        <input type="text" placeholder='Find a problem that matches your skills..' className='border p-1 w-3/12'/>
+        
       </div>
       <div className=' p-8 mx-auto m-4 bg-cyan-600 rounded-xl max-w-6xl'>
         {problems.map((problem) =>
@@ -81,7 +92,7 @@ export default function ProblemsList() {
                 )}
               </div>
               <TrashIcon className="p-1 text-cyan-900 mx-1 size-9 my-auto rounded-md hover:bg-cyan-800 hover:text-gray-100" onClick={(e) => handleDelete(problem._id, e)} />
-              <PencilSquareIcon className="p-1 text-cyan-900 mx-1 size-9 my-auto rounded-md hover:bg-cyan-800 hover:text-gray-100" onClick={(e) => handleDelete(problem._id, e)} />
+              <PencilSquareIcon className="p-1 text-cyan-900 mx-1 size-9 my-auto rounded-md hover:bg-cyan-800 hover:text-gray-100" onClick={(e) => handleUpdate(problem._id, e)} />
             </div>
           </div>
         )}

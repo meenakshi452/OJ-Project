@@ -9,7 +9,7 @@ const testCaseSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-  });
+});
 
 const problemSchema = new mongoose.Schema({
     name:{
