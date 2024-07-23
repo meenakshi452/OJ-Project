@@ -85,7 +85,7 @@ export default function ProblemsList() {
                   // Math.random();
                   <div className=' mt-3.5 px-1 '>
                     <span className='bg-white/70 px-1 pb-0.5 rounded-md text-black/50 shadow-md'>
-                      {tag}
+                      {tag.tags}
                     </span>
                   </div>
 

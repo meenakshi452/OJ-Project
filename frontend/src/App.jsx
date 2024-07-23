@@ -7,6 +7,9 @@ import Problem from "./pages/Problem"
 import ProblemsList from "./components/ProblemsList"
 import ProblemCreate from "./pages/ProblemCreate"
 import UpdateProblem from "./pages/UpdateProblem"
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism.css';
 
 
 function App() {

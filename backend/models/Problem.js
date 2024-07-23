@@ -10,6 +10,14 @@ const testCaseSchema = new mongoose.Schema({
       required: true,
     },
 });
+const tagSchema = new mongoose.Schema({
+    id: {
+      type: Number,
+    },
+    tags: {
+      type: String,
+    },
+});
 
 const problemSchema = new mongoose.Schema({
     name:{
@@ -33,7 +41,7 @@ const problemSchema = new mongoose.Schema({
       required: true,
     },
     tags:{
-      type: [String],
+      type: [tagSchema],
     },
     testCases:{
       type: [testCaseSchema],
