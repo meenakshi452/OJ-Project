@@ -23,18 +23,12 @@ export default function ProblemCreate() {
   const [tok, setTok] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGY4YTMzNGZmMTg5NTBmMmU1OWI0OCIsImVtYWlsIjoidXNlckBnYW1pbC5jb20iLCJpYXQiOjE3MjExMjc3NjYsImV4cCI6MTcyMTEyNzc3MX0.e6cD9zG1ccIOBHQgSH1i6iiQBdoGuWRnH8K6gco9AeE')
   const [name, setName] = useState('');
   const [tags, setTags] = useState([]);
-  const [tagList, setTagList] = useState([]);
   const [err, setErr] = useState(null);
   const [message, setMessage] = useState('');
 
   const handleSubmit = async ({title, desc, difficulty, inputDesc, outputDesc, tags, testCases, tok}, e) => {
     e.preventDefault();
-    tags.map(tag => 
-      setTagList([
-        ...tagList,
-        tag.name
-      ])
-    )
+    
     const res = await fetch('http://localhost:8000/createProblem', {
       method: 'POST',
       headers: {
@@ -94,7 +88,7 @@ export default function ProblemCreate() {
             <div>
             <textarea 
               placeholder="How will the input be..." 
-              rows="2" 
+              rows="3" 
               className='border w-full mt-2 pl-2 pt-1 resize-none hover:resize-y bg-white/90 rounded-lg'
               value={inputDesc}
               onChange={(e) => setInputDesc(e.target.value)}
@@ -108,7 +102,7 @@ export default function ProblemCreate() {
             <div>
             <textarea 
               placeholder="How will the output be..."
-              rows="2" 
+              rows="3" 
               className='border w-full mt-2 pl-2 pt-1 resize-none hover:resize-y bg-white/90 rounded-lg'
               value={outputDesc}
               onChange={(e) => setOutputDesc(e.target.value)}

@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.post("/run", async (req, res) => {
-    const { language = 'cpp', code, input  } = req.body; 
+    const { language = 'cpp', code, input = ''  } = req.body; 
     if(code === undefined || !code){
         return res.status(500).json({
             "success": false,

@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
 const testCaseSchema = new mongoose.Schema({
+    id: {
+      type: Number,
+    },
     input: {
       type: String,
       required: true,

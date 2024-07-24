@@ -23,6 +23,7 @@ router.post("/profile", getProfile);
 router.post("/createProblem", CRUDProblem.createProblem);
 router.put("/:id", CRUDProblem.updateProblem);
 router.delete("/:id", CRUDProblem.deleteProblem);
+router.post("/:id", CRUDProblem.submitProblem);
 router.route("/problemList").get( CRUDProblem.getAllProblems);
 router.get("/:id", CRUDProblem.getProblem);
 
