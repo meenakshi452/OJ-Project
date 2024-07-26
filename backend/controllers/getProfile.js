@@ -12,7 +12,7 @@ const getProfile = async (req, res) =>{
         jwt.verify(
             token,
             process.env.SECRET_KEY,
-            (err, decoded) => {
+            async (err, decoded) => {
                 if(err){
                     const error = new Error();
                     error.success = false;
@@ -20,9 +20,14 @@ const getProfile = async (req, res) =>{
                     return res.status(403).json(error);
                 } 
                 // res.user = decoded.username;
+                decoded.iat = undefined
+                decoded.exp = undefined
+                const id = decoded.id;
+                const user = await User.findById(id);
+                user.password = undefined;
                 res.status(200).json({
                     success: true,
-                    decoded
+                    user
                 });
             }
         )

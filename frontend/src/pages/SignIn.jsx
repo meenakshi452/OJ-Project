@@ -1,6 +1,9 @@
 import React, { createContext, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+// import { TEAnimation } from "tw-elements-react";
+import Animate from 'react-smooth'
 
 export default function SignIn() {
   
@@ -34,11 +37,29 @@ export default function SignIn() {
       navigate('/');
     }
   }
+  const steps = [{
+    style: {
+      opacity: 0,
+    },
+    duration: 400,
+  }, {
+    style: {
+      opacity: 1,
+      transform: 'translate(0, 0)',
+    },
+    duration: 500,
+  }];
 
   return (
+    <Animate steps={steps}>
+      <div className='h-screen py-32'>
     <div className='p-3 max-w-lg mx-auto border rounded-lg border-transparent  bg-[#f6fcffc2] shadow-lg'>
+      
       <h1 className='text-3xl text-center font-semibold my-7 text-blue-500'>Sign In</h1>
-      <form onSubmit={(e) => handleSubmit({email, password}, e)} className='flex flex-col gap-4'>
+      
+        
+      
+      <form onSubmit={(e) => handleSubmit({email, password}, e)} className='flex flex-col gap-4 '>
         <input
           type="email"
           placeholder='Email' 
@@ -67,5 +88,7 @@ export default function SignIn() {
       </div>
       <p className='text-red-500'>{error ? error.message: ""}</p>
     </div>
+    </div>
+    </Animate>
   )
 }

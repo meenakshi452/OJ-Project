@@ -1,47 +1,60 @@
 import React, { useEffect, useState } from 'react'
 import MiniTable from '../components/MiniTable'
+import toast, { Toaster } from 'react-hot-toast';
+
+const response = await fetch('http://localhost:8000/profile', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(),
+    });
+    const res = await response.json();
 
 export default function Profile() {
-  const [canEdit, setCanEdit] = useState(false);
-  const [tok, setTok] = useState(localStorage.getItem("token"));
-  const [data, setData] = useState(null);
+    const [canEdit, setCanEdit] = useState(false);
+    // const [tok, setTok] = useState(localStorage.getItem("token"));
+    const [data, setData] = useState(res.user);
+    
+    const [isAuth, setIsAuth] = useState(false)
+    // async function handleSubmit(e){
+    //     e.preventDefault();
+    //     const formDataa = {token: `${tok}`};
+    //     const response = await fetch('http://localhost:8000/profile', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'authorization': `Bearer ${tok}`,
+    //     },
+    //     body: JSON.stringify(),
+    //     });
+    //     const res = await response.json();
+    //     setData(res.user);
+    // }
+    // handleSubmit();
 
-//   useEffect(() => {
-//     const fetchUserData = async () => {
-//       try {
-//         setToken(localStorage.get("token"));
+    // async function handleSubmit(e){
+    //     e.preventDefault();
+    //     const formDataa = {token: `${tok}`};
         
-//       } catch (error) {
-//         console.error("Error fetching user data:", error);
-//       }
-//     };
-//     fetchUserData();
-//   }, []);
+        // setData(res.user);
+    // }
+    // handleSubmit();
 
-async function handleSubmit(e){
-    e.preventDefault();
-    const formDataa = {token: tok};
-    const res = await fetch('http://localhost:8000/profile', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const handleClick = (e) => {
+        e.preventDefault();
+        setCanEdit(!canEdit);
+    }
+    // const notify = () => toast('Here is your toast.');
+    
+    return (
         
-      },
-      body: JSON.stringify(formDataa),
-    });
-    setData(await res.json());
-    console.log(res);
-  }
-  handleSubmit();
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    setCanEdit(!canEdit);
-  }
-  return (
     <div>
-        <button onClick={(e) => handleSubmit(e)}>CLickMe</button>
-        {(data.success == true) && 
+        {/* <button onClick={(e) => handleSubmit(e)}>CLickMe</button>
+        <button onClick={notify}>Make me a toast</button>
+        <Toaster /> */}
+        {data &&
             <div className='flex md:flex-row flex-col justify-around m-5 gap-7 mt-10 '>
             <div className="personal-details flex flex-col basis-5/12 gap-5 p-4 border  rounded-md bg-cyan-100/20">
                 
@@ -56,7 +69,7 @@ async function handleSubmit(e){
                     <input 
                         disabled={!canEdit}
                         type="text" 
-                        placeholder={(data) ? data.name : "Username"}
+                        value={(data) ? data.name : "Username"}
                         className='border rounded-lg w-full p-2 mt-2 bg-slate-100 hover:opacity-85'
                     />
                 </div>
@@ -65,7 +78,7 @@ async function handleSubmit(e){
                     <input 
                         disabled={!canEdit}
                         type="email" 
-                        placeholder={data ? data.email : 'Email'}
+                        value={data ? data.email : 'Email'}
                         className='border rounded-lg w-full p-2 mt-2 bg-slate-100 hover:opacity-85'
                     />
                 </div>
@@ -107,7 +120,10 @@ async function handleSubmit(e){
         </div>
         }
         {(!data ) && 
-            <div>Not Autherised to view this page</div>
+            <div className='text-center h-screen '>
+                <h1 className='text-9xl text-red-500'>401</h1>
+                <span className='text-6xl '>Not Autherised to view this page</span>
+            </div>
         }
         
         </div>

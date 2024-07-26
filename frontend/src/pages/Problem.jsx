@@ -21,9 +21,16 @@ import 'prismjs/themes/prism.css';
 
 
 export default function Problem () {
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState(`#include <iostream>
+
+int main() {
+    // Write C++ code here
+
+    return 0;
+}`);
   const { id } = useParams();
   const [data, setData] = useState(null);
+  let testcase = 1;
 
   useEffect(() => {
     const fetchProblem = async () => {
@@ -42,11 +49,14 @@ export default function Problem () {
   }, [id]);
 
   const [output, setOutput] = useState('');
+  const [verdict, setVerdict] = useState('');
+  const [result, setResult] = useState(null);
 
   const handleRun = async () => {
     const payload = {
       language: 'cpp',
-      code
+      code, 
+      input
     };
 
     try {
@@ -58,7 +68,36 @@ export default function Problem () {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
+
       setOutput(data.output);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+
+  const handleSubmit = async () => {
+    const payload = {
+      language: 'cpp',
+      code
+    };
+
+
+    try {
+      const res = await fetch('http://localhost:8000/'+id, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      console.log(data);
+      data.map(e =>
+        {e.passed === false && setResult(false)} 
+      )
+      result === null ? setResult(true) : setResult(false)
+      
+      setVerdict(data);
     } catch (error) {
       console.log(error.response);
     }
@@ -84,15 +123,20 @@ export default function Problem () {
 
   
   const [selectedValue, setSelectedValue] = useState('Option 1'); 
+  const [input, setInput] = useState('');
   const handleChange = (event) => {
   setSelectedValue(event.target.value);
   };
 
-  const hightlightWithLineNumbers = (input, language) =>
-    highlight(input, language)
-      .split("\n")
-      .map((line, i) => `<span class='editorLineNumber text-gray-400 '>${i + 1}</span>${line}`)
-      .join("\n");
+  const [value, setValue] = useState('input');
+  const handleOutputChange = (event) => {
+    setValue(event.target.value);
+  };
+  // const hightlightWithLineNumbers = (input, language) =>
+  //   highlight(input, language)
+  //     .split("\n")
+  //     .map((line, i) => `<span class='editorLineNumber text-gray-400 '>${i + 1}</span>${line}`)
+  //     .join("\n");
   
 
   
@@ -136,11 +180,11 @@ export default function Problem () {
             {/* <textarea className="code w-11/12 min-h-96 bg-gray-400 overflow-y-auto my-4 mx-auto">
               
             </textarea> */}
-            <div className="bg-gray-100 shadow-md w-full max-w-lg mb-4" style={{ height: '300px', overflowY: 'auto' }}>
+            <div className="bg-gray-100 shadow-md  m-4" style={{ height: '300px', overflowY: 'auto' }}>
               <Editor
                 value={code}
                 onValueChange={code => setCode(code)}
-                highlight={code => hightlightWithLineNumbers(code, languages.js)}
+                highlight={code => highlight(code, languages.js)}
                 padding={10}
                 style={{
                   fontFamily: '"Fira code", "Fira Mono", monospace',
@@ -149,28 +193,88 @@ export default function Problem () {
                   border: 'none',
                   backgroundColor: '#f7fafc',
                   height: '100%',
-                  overflowY: 'auto'
+                  overflowY: 'auto',
+
                 }}
               />
             </div>
-            {output &&
-        <div className="outputbox mt-4 bg-gray-100 rounded-md shadow-md p-4">
-          <p style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: 12,
-          }}>{output}</p>
-        </div>
-      }
+
+            {/* <select value={value} onChange={handleOutputChange} className='border-b mx-4 flex flex-row gap-3 text-lg'>
+              <option value="input">Input</option>
+              <option value="output">Output</option>
+              <option value="verdict">Verdict</option>
+            </select> */}
+            
+            <div className='flex flex-row gap-2 mx-4 border-b'>
+              <button onClick={(e) => {
+                e.preventDefault()
+                setValue('input')
+              }}>Input</button>
+              <button onClick={(e) => {
+                e.preventDefault()
+                setValue('output')
+              }}>Output</button>
+              <button onClick={(e) => {
+                e.preventDefault()
+                setValue('verdict')
+              }}>Verdict</button>
+            </div>
+
+            <div className="outputbox mt-4 bg-gray-100 rounded-md shadow-md m-4 h-20 overflow-y-auto">
+              {value === 'input' ? 
+                <Editor
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                highlight={code => highlight(code, languages.js)}
+                padding={10}
+                style={{
+                  fontFamily: '"Fira code", "Fira Mono", monospace',
+                  fontSize: 12,
+                  outline: 'none',
+                  border: 'none',
+                  backgroundColor: '#f7fafc',
+                  height: '100%',
+                  overflowY: 'auto',
+
+                }}
+              /> : value === 'output' ? 
+                <p style={{
+                  fontFamily: '"Fira code", "Fira Mono", monospace',
+                  fontSize: 12,
+                }}>{output ? output : ""}</p> : 
+                <div className='' style={{
+                    fontFamily: '"Fira code", "Fira Mono", monospace',
+                    fontSize: 12,
+                  }}>
+                  <div className='p-2 text-base'>
+                    Result: {result === true ? 
+                      <span className='text-green-600'>Accepted</span> : result === false ?
+                        <span className='text-red-600'>Rejected</span> : ""}
+                  </div>
+                    {verdict ? 
+                        <div className='flex flex-wrap gap-2 p-2 overflow-y-auto'>
+                          {verdict.map(e => 
+                            e.passed === true ? 
+                              <p  className='bg-green-500 p-1 text-white'>Test Case {testcase++}</p>
+                            : <p className='bg-red-500 p-1 text-white'>Test Case {testcase++}</p>
+                          )}
+                        </div>
+                      : ""}
+                  
+                </div>
+              }
+              {/*  */}
+            </div>
+      
             <div className="buttons flex flex-row w-11/12 mx-auto gap-2">
-              <button className='border basis-1/3 py-2 text-white rounded-md bg-gray-500'>
-                Console
-              </button>
               <button
-               className='border basis-1/3 py-2 text-white rounded-md bg-gray-700'
-               onClick={handleRun}>
+                className='border basis-1/2 py-2 text-white rounded-md bg-gray-700'
+                onClick={handleRun}>
                 Run
               </button>
-              <button className='border basis-1/3 py-2 text-white rounded-md bg-green-700'>
+              <button
+                className='border basis-1/2 py-2 text-white rounded-md bg-green-700'
+                onClick={handleSubmit}>
                 Submit
               </button>
             </div>

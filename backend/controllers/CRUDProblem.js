@@ -218,7 +218,6 @@ const CRUDProblem = {
 
   submitProblem: async (req, res) => {
     const { language = "cpp", code } = req.body;
-    const id = req.params.id;
 
     if (!code) {
       const error = new Error();
@@ -234,9 +233,6 @@ const CRUDProblem = {
         return res.status(404).json({ error: "Problem not found" });
       }
 
-      if (language !== "cpp") {
-        return res.status(400).json({ error: "Unsupported language" });
-      }
 
       const results = [];
       for (const testCase of problem.testCases) {
