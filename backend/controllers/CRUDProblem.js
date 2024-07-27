@@ -24,6 +24,13 @@ const CRUDProblem = {
       testCases,
       tok,
     } = req.body;
+    if(!tok) {
+      const error = new Error();
+      error.statusCode = 400;
+      error.message = "You have to login to create a problem";
+      error.success = false;
+      return res.status(400).json(error);
+    }
     const createdBy = jwtDecode(tok).id;
     if (
       !(
@@ -31,7 +38,6 @@ const CRUDProblem = {
         description &&
         difficulty &&
         testCases &&
-        tok &&
         inputDesc &&
         outputDesc
       )
@@ -42,6 +48,7 @@ const CRUDProblem = {
       error.success = false;
       return res.status(400).json(error);
     }
+    
     if (testCases.length == 0) {
       const error = new Error();
       error.statusCode = 400;
@@ -124,15 +131,20 @@ const CRUDProblem = {
         return res.status(400).json(error);
       }
     }
-    // const UserId = jwtDecode(tok).id;
-    // const CreatorId = Problem.findById(req.params.id).createdBy;
-    // if(!(UserId === CreatorId)){
-    //   const error = new Error();
-    //   error.statusCode = 400;
-    //   error.message = "You are not Authenticated to update this problem";
-    //   error.success = false;
-    //   return res.status(400).json(error);
-    // }
+    const UserId = jwtDecode(tok).id;
+    console.log(UserId);
+    const problemId = req.params.id;
+    console.log(problemId);
+    const CreatorId = await Problem.findById(problemId);
+    console.log(CreatorId.createdBy);
+    if(!(UserId === CreatorId.createdBy)){
+      const error = new Error();
+      error.statusCode = 400;
+      error.id = problemId;
+      error.message = "You are not Authenticated to update this problem";
+      error.success = false;
+      return res.status(400).json(error);
+    }
     try {
       const existingProblem = await Problem.findByIdAndUpdate(
         req.params.id,
@@ -215,6 +227,31 @@ const CRUDProblem = {
       res.status(500).json({ message: error.message });
     }
   },
+  getEasy: async (req, res) => {
+      try {
+        const problems = await Problem.find({difficulty: 'easy'});
+        res.status(200).json(problems);
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+  },
+  getMedium: async (req, res) => {
+      try {
+        const problems = await Problem.find({difficulty: 'medium'});
+        res.status(200).json(problems);
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+    
+  },
+  getHard: async (req, res) => {
+      try {
+        const problems = await Problem.find({difficulty: 'hard'});
+        res.status(200).json(problems);
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+  },
 
   submitProblem: async (req, res) => {
     const { language = "cpp", code } = req.body;
@@ -269,6 +306,25 @@ const CRUDProblem = {
       res.status(501).json({ error: error.message });
     }
   },
+
+  searchQuery: async(req, res) => {
+    const keyword = req.query.q;
+    // const a = await Problem.find({ name: new RegExp(keyword, 'i') });
+    const searchlist = await Problem.find({
+      $or: [
+        { name: new RegExp(keyword, 'i') },
+        { "tags.tags": new RegExp(`\\b${keyword}\\b`, 'i') },
+
+      ],
+    });
+    res.status(200).json(searchlist);
+  
+  },
+
+
+ 
+
+
 };
 
 export default CRUDProblem;

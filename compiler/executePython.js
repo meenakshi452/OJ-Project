@@ -14,14 +14,13 @@ if(!fs.existsSync(outputPath)){
     fs.mkdirSync(outputPath, {recursive: true});
 }
 
-const executeCpp = async (filePath, inputPath) => {
+const executePython = async (filePath, inputPath) => {
     const jobId = path.basename(filePath).split('.')[0];
     const output_filename = `${jobId}.exe`
     const outpath = path.join(outputPath, output_filename);
 
-    // setTimeout(, 3000)
-    return new Promise ((resolve, reject) => {
-        exec(`g++ ${filePath} -o ${outpath} && cd ${outputPath} && .\\${output_filename} < ${inputPath}`,
+    return new Promise((resolve, reject) => {
+        exec(`python ${filePath} -o ${outpath} < ${inputPath}`,
              (error, stdout, stderr) => {
             if(error){
                 reject({error, stderr});
@@ -34,4 +33,4 @@ const executeCpp = async (filePath, inputPath) => {
     });
 };
 
-export default executeCpp;
+export default executePython;

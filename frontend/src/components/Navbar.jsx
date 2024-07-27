@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function Navbar() {
@@ -18,7 +19,7 @@ export default function Navbar() {
         body: JSON.stringify(),
       });
       const data = await res.json();
-        console.log(data);
+        // console.log(data);
       if (data.success === true) {
         setLoggedIn(true);
       }
@@ -38,6 +39,7 @@ export default function Navbar() {
         'Content-Type': 'application/json',
       },
     });
+    toast.success("Logout Successful!")
     setLoggedIn(false);
   }
 
@@ -49,10 +51,24 @@ export default function Navbar() {
           <Link to="/">CodeQuest</Link>
         </h1>
         <div className="flex items-center space-x-6">
+          <div>
+            <Link to="/problemList">
+              <button className=' py-2 px-4 '>
+                All Problems
+              </button>
+            </Link>
+          </div>
           
         {loggedIn ? (
-          <div>
-            <button onClick={handleSignout} className='bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>Signout</button>
+          <div className='flex flex-row gap-2'>
+            <Link to='/createProblem' >
+              <button className='bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>
+                Create Problem
+              </button>
+            </Link>
+            <button onClick={handleSignout} className='bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>
+              Signout
+            </button>
           </div>
           
         ) : (

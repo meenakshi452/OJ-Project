@@ -20,11 +20,17 @@ router.post("/profile", getProfile);
 
 
 //problem routes
-router.post("/createProblem", CRUDProblem.createProblem);
-router.put("/:id", CRUDProblem.updateProblem);
-router.delete("/:id", CRUDProblem.deleteProblem);
+router.post("/createProblem",verifyJWT, CRUDProblem.createProblem);
+router.put("/:id",verifyJWT, CRUDProblem.updateProblem);
+router.delete("/:id",verifyJWT, CRUDProblem.deleteProblem);
 router.post("/:id", CRUDProblem.submitProblem);
 router.route("/problemList").get( CRUDProblem.getAllProblems);
+router.route("/geteasy").get( CRUDProblem.getEasy);
+router.route("/getmedium").get( CRUDProblem.getMedium);
+router.route("/gethard").get( CRUDProblem.getHard);
+router.route("/search").get( CRUDProblem.searchQuery);
 router.get("/:id", CRUDProblem.getProblem);
+
+
 
 export default router;

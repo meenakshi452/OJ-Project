@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
@@ -18,9 +18,7 @@ export default function SignIn() {
   const handleChangePassword = (e) => {
     setPassword(e.target.value)
   }
-  async function handleSubmit({email, password}, e){
-    e.preventDefault();
-    const formDataa = {email, password}
+  const fetchData = async (formDataa) => {
     const res = await fetch('http://localhost:8000/signin', {
       method: 'POST',
       headers: {
@@ -34,9 +32,22 @@ export default function SignIn() {
     if(data.success === true){
       const tok = localStorage.setItem("token", data.token);
       // console.log(res);
+      toast.success(`Hello ${data.user.name}`);
       navigate('/');
     }
+  };
+
+  async function handleSubmit({email, password}, e){
+    e.preventDefault();
+    const formDataa = {email, password}
+    fetchData(formDataa);
+
+      
+    
   }
+
+  
+
   const steps = [{
     style: {
       opacity: 0,
@@ -88,6 +99,10 @@ export default function SignIn() {
       </div>
       <p className='text-red-500'>{error ? error.message: ""}</p>
     </div>
+    <div><Toaster
+      position="top-right"
+    /></div>
+    
     </div>
     </Animate>
   )

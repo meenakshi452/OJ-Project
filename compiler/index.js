@@ -3,6 +3,8 @@ import cors from 'cors'
 import generateFile from './generateFile.js';
 import executeCpp from './executeCpp.js';
 import generateInputFile from './generateInputFile.js';
+import executeC from './executeC.js';
+import executePython from './executePython.js';
 
 const app = express();
 
@@ -19,18 +21,48 @@ app.post("/run", async (req, res) => {
             message: "empty code body!"
         })
     }
-
-    try {
-        const filePath = await generateFile(language, code);
-        const inputPath = await generateInputFile(input);
-        const output = await executeCpp(filePath, inputPath);
-        res.json({filePath, output})
-    } catch (error) {
-        res.status(500).json({
-            "success": false,
-            message: error.message
-        })
+    if(language === 'cpp'){
+        try {
+            const filePath = await generateFile(language, code);
+            const inputPath = await generateInputFile(input);
+            const output = await executeCpp(filePath, inputPath);
+            res.json({filePath, output})
+        } catch (error) {
+            res.status(500).json({
+                "success": false,
+                "tle":"tle",
+                message: error
+            })
+        }
     }
+    else if(language === 'c'){
+        try {
+            const filePath = await generateFile(language, code);
+            const inputPath = await generateInputFile(input);
+            const output = await executeC(filePath, inputPath);
+            res.json({filePath, output})
+        } catch (error) {
+            res.status(500).json({
+                "success": false,
+                message: error.message
+            })
+        }
+    }
+    else if(language === 'py'){
+        try {
+            const filePath = await generateFile(language, code);
+            const inputPath = await generateInputFile(input);
+            const output = await executePython(filePath, inputPath);
+            res.json({filePath, output})
+        } catch (error) {
+            res.status(500).json({
+                "success": false,
+                message: error.message
+            })
+        }
+    }
+
+    
 
 })
 

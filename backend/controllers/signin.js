@@ -10,6 +10,7 @@ dotenv.config();
         const {email, password} = req.body;
         const user = await User.findOne({email});
         
+        
         if(!(email && password)){
             const error = new Error();
             error.statusCode = 400;

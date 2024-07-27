@@ -10,7 +10,12 @@ const verifyJWT = (req, res, next) => {
         token,
         process.env.SECRET_KEY,
         (err, decoded) => {
-            if(err) return res.sendStatus(403);
+            if(err){
+                const error =  new Error();
+                error.success = false;
+                error.message = "You will have to login" 
+                return res.status(403).json(error);
+            } 
             req.user = decoded.username;
             next();
         }

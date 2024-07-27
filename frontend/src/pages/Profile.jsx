@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import MiniTable from '../components/MiniTable'
 import toast, { Toaster } from 'react-hot-toast';
 
 const response = await fetch('http://localhost:8000/profile', {

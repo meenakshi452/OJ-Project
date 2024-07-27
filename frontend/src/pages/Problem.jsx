@@ -54,7 +54,7 @@ int main() {
 
   const handleRun = async () => {
     const payload = {
-      language: 'cpp',
+      language: selectedValue,
       code, 
       input
     };
@@ -77,7 +77,7 @@ int main() {
 
   const handleSubmit = async () => {
     const payload = {
-      language: 'cpp',
+      language: selectedValue,
       code
     };
 
@@ -122,7 +122,7 @@ int main() {
   // }, [])
 
   
-  const [selectedValue, setSelectedValue] = useState('Option 1'); 
+  const [selectedValue, setSelectedValue] = useState('cpp'); 
   const [input, setInput] = useState('');
   const handleChange = (event) => {
   setSelectedValue(event.target.value);
@@ -172,9 +172,9 @@ int main() {
             <div className='flex flex-row p-2 gap-4' >
                 <h1>Language:</h1>
                 <select value={selectedValue} onChange={handleChange} className='border-2 border-black/80 rounded-md'>
-                  <option value="Option 1">C++</option>
-                  <option value="Option 2">Java</option>
-                  <option value="Option 3">C</option>
+                  <option value="cpp">C++</option>
+                  <option value="c">C</option>
+                  <option value="py">Python</option>
                 </select>
             </div>
             {/* <textarea className="code w-11/12 min-h-96 bg-gray-400 overflow-y-auto my-4 mx-auto">

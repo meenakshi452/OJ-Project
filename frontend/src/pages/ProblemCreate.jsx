@@ -20,7 +20,7 @@ export default function ProblemCreate() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   
-  const [tok, setTok] = useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGY4YTMzNGZmMTg5NTBmMmU1OWI0OCIsImVtYWlsIjoidXNlckBnYW1pbC5jb20iLCJpYXQiOjE3MjExMjc3NjYsImV4cCI6MTcyMTEyNzc3MX0.e6cD9zG1ccIOBHQgSH1i6iiQBdoGuWRnH8K6gco9AeE')
+  const [tok, setTok] = useState(localStorage.getItem("token"))
   const [name, setName] = useState('');
   const [tags, setTags] = useState([]);
   const [err, setErr] = useState(null);
@@ -28,11 +28,13 @@ export default function ProblemCreate() {
 
   const handleSubmit = async ({title, desc, difficulty, inputDesc, outputDesc, tags, testCases, tok}, e) => {
     e.preventDefault();
+
     
     const res = await fetch('http://localhost:8000/createProblem', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'authorization': `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({name:title, description:desc, difficulty, inputDesc, outputDesc, tags, testCases, tok}),
     });
