@@ -1,12 +1,13 @@
-import executeCpp from "../../compiler/executeCpp.js";
+
 import Problem from "../models/Problem.js";
 import { jwtDecode } from "jwt-decode";
 import fs from "fs";
 import path from "path";
 
 import { fileURLToPath } from "url";
-import generateFile from "../../compiler/generateFile.js";
-import generateInputFile from "../../compiler/generateInputFile.js";
+// import generateFile from "../../compiler/generateFile.js";
+// import generateInputFile from "../../compiler/generateInputFile.js";
+import { executeCpp, generateFile, generateInputFile } from "./run.js";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory

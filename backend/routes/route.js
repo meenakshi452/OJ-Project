@@ -6,6 +6,7 @@ import logout from '../controllers/logout.js';
 import CRUDProblem from '../controllers/CRUDProblem.js';
 import dotenv from 'dotenv';
 import verifyJWT from '../middleware/verifyJWT.js';
+import { run } from '../controllers/run.js';
 dotenv.config();
 
 
@@ -23,6 +24,7 @@ router.post("/profile", getProfile);
 router.post("/createProblem",verifyJWT, CRUDProblem.createProblem);
 router.put("/:id",verifyJWT, CRUDProblem.updateProblem);
 router.delete("/:id",verifyJWT, CRUDProblem.deleteProblem);
+router.post("/run", run);
 router.post("/:id", CRUDProblem.submitProblem);
 router.route("/problemList").get( CRUDProblem.getAllProblems);
 router.route("/geteasy").get( CRUDProblem.getEasy);
