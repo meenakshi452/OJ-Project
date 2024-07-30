@@ -53,7 +53,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-6">
           <div>
             <Link to="/problemList">
-              <button className=' py-2 px-4 '>
+              <button className=' py-2 px-4 hover:underline'>
                 All Problems
               </button>
             </Link>

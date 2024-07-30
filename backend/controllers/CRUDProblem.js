@@ -7,7 +7,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 // import generateFile from "../../compiler/generateFile.js";
 // import generateInputFile from "../../compiler/generateInputFile.js";
-import { executeCpp, generateFile, generateInputFile } from "./run.js";
+import { executeC, executeCpp, executePython, generateFile, generateInputFile } from "./run.js";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -277,25 +277,28 @@ const CRUDProblem = {
         try {
           const filePath = await generateFile(language, code);
           const inputPath = await generateInputFile(testCase.input);
-          const output = await executeCpp(filePath, inputPath);
+          let output;
+          if(language === 'cpp'){
+            output = await executeCpp(filePath, inputPath);
+          }
+          else if(language === 'c'){
+            output = await executeC(filePath, inputPath);
+          }
+          else if(language === 'py'){
+            output = await executePython(filePath, inputPath);
+          }
           const actualOutput = output.trim();
           const expectedOutput = testCase.output.trim();
-          const passed = actualOutput === expectedOutput;
+          const passed = (actualOutput === expectedOutput);
 
           results.push({
-            input: testCase.input,
-            expectedOutput: expectedOutput,
-            actualOutput: actualOutput,
             passed: passed,
           });
-          if (!passed) {
+          if (passed === false) {
             break;
           }
         } catch (error) {
           results.push({
-            input: testCase.input,
-            expectedOutput: testCase.output,
-            actualOutput: null,
             passed: false,
             error: error.message,
           });

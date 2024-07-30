@@ -209,21 +209,33 @@ export default function ProblemCreate() {
               <div className='flex flex-row gap-4 p-2'>
                 <div className='basis-1/2 flex flex-row gap-2'>
                   <h1 className='text-2xl text-white/80'>Input:</h1>
-                  <input 
+                  <textarea 
                     type="text" 
                     className='border w-full bg-white/90 rounded-lg pl-1'
                     value={input}
                     onChange={e => setInput(e.target.value)}
-                  />
+                  ></textarea>
+                  {/* <input 
+                    type="text" 
+                    className='border w-full bg-white/90 rounded-lg pl-1'
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                  /> */}
                 </div>
                 <div className='basis-1/2 flex flex-row gap-2'>
                   <h1 className='text-2xl text-white/80'>Output:</h1>
-                  <input 
+                  <textarea 
                     type="text" 
                     className='border w-full bg-white/90 rounded-lg pl-1'
                     value={output}
                     onChange={e => setOutput(e.target.value)}
-                  />
+                  ></textarea>
+                  {/* <input 
+                    type="text" 
+                    className='border w-full bg-white/90 rounded-lg pl-1'
+                    value={output}
+                    onChange={e => setOutput(e.target.value)}
+                  /> */}
                 </div>
                 
               </div>

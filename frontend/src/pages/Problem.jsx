@@ -68,7 +68,6 @@ int main() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-
       setOutput(data.output);
     } catch (error) {
       console.log(error.response);
