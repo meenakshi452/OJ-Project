@@ -1,5 +1,5 @@
 import User from '../models/Users.js';
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from 'jwt-decode';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
