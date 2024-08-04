@@ -45,11 +45,11 @@ if(!fs.existsSync(outputPath)){
 
 const executeC = async (filePath, inputPath) => {
     const jobId = path.basename(filePath).split('.')[0];
-    const output_filename = `${jobId}.exe`
+    const output_filename = `${jobId}.out`
     const outpath = path.join(outputPath, output_filename);
 
     return new Promise((resolve, reject) => {
-        exec(`gcc ${filePath} -o ${outpath} && cd ${outputPath} && .\\${output_filename} < ${inputPath}`,
+        exec(`gcc ${filePath} -o ${outpath} && cd ${outputPath} && ./${output_filename} < ${inputPath}`,
              (error, stdout, stderr) => {
             if(error){
                 reject({error, stderr});
@@ -64,12 +64,12 @@ const executeC = async (filePath, inputPath) => {
 
 const executeCpp = async (filePath, inputPath) => {
     const jobId = path.basename(filePath).split('.')[0];
-    const output_filename = `${jobId}.exe`
+    const output_filename = `${jobId}.out`
     const outpath = path.join(outputPath, output_filename);
 
     // setTimeout(, 3000)
     return new Promise ((resolve, reject) => {
-        exec(`g++ ${filePath} -o ${outpath} && cd ${outputPath} && .\\${output_filename} < ${inputPath}`,
+        exec(`g++ ${filePath} -o ${outpath} && cd ${outputPath} && ./${output_filename} < ${inputPath}`,
              (error, stdout, stderr) => {
             if(error){
                 reject({error, stderr});
