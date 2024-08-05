@@ -5,7 +5,7 @@ dotenv.config();
 
 const DBConnection = async () => {
     const MONGODB_URL = process.env.MONGODB_URI;
-    const client = new MongoClient(uri, {
+    const client = new MongoClient(MONGODB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverSelectionTimeoutMS: 30000, // Increase to 30 seconds
