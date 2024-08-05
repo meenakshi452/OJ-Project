@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MongoClient } from 'mongodb';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -12,6 +12,11 @@ const DBConnection = async () => {
         socketTimeoutMS: 60000, // Increase to 60 seconds
         tls: true, // Enable TLS/SSL
         tlsInsecure: true,
+        serverApi: {
+            version: ServerApiVersion.v1,
+            strict:true,
+            deprecationErrors: true,
+        },
       });
     try {
         await client.connect(MONGODB_URL, {useNewUrlParser: true});
