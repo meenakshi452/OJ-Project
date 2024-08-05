@@ -10,6 +10,8 @@ const DBConnection = async () => {
         useUnifiedTopology: true,
         serverSelectionTimeoutMS: 30000, // Increase to 30 seconds
         socketTimeoutMS: 60000, // Increase to 60 seconds
+        tls: true, // Enable TLS/SSL
+        tlsInsecure: true,
       });
     try {
         await client.connect(MONGODB_URL, {useNewUrlParser: true});
