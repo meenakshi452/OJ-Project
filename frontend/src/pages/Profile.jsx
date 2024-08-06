@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 
-const response = await fetch('https://oj-project-production.up.railway.app/profile', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(),
-    });
-    const res = await response.json();
 
-export default function Profile() {
+
+export default async function Profile() {
+    const response = await fetch('https://oj-project-production.up.railway.app/profile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(),
+        });
+        const res = await response.json();
+
     const [canEdit, setCanEdit] = useState(false);
     // const [tok, setTok] = useState(localStorage.getItem("token"));
     const [data, setData] = useState(res.user);
