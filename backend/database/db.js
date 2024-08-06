@@ -5,7 +5,7 @@ dotenv.config();
 
 const DBConnection = async () => {
     const MONGODB_URL = process.env.MONGODB_URI;
-    const client = new MongoClient(MONGODB_URL, {
+    const client = await new MongoClient(MONGODB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         serverSelectionTimeoutMS: 30000, // Increase to 30 seconds
@@ -19,7 +19,7 @@ const DBConnection = async () => {
         },
       });
     try {
-        await client.connect(MONGODB_URL, {useNewUrlParser: true});
+        await mongoose.connect(MONGODB_URL, {useNewUrlParser: true});
         console.log("DB connection established!!");
     } catch (error) {
         console.log(error);
