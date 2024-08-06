@@ -5,7 +5,7 @@ import axios from 'axios';
 import Typewriter from 'typewriter-effect';
 import toast, { Toaster } from 'react-hot-toast';
 import { jwtDecode } from "jwt-decode";
-import { MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
+import { ArrowPathIcon, MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
 
 
 
@@ -144,10 +144,11 @@ export default function ProblemsList() {
       </div> */}
       <div className='flex md:flex-row flex-col justify-between mx-10 md:mx-20 mt-10 gap-3'>
         <div className='flex flex-row gap-2 '>
-          <p>Sort By:</p>
+          <p className='text-xl text-cyan-800'>Sort By:</p>
           <button onClick={geteasy} className='rounded-md bg-cyan-400 px-2 text-white'>Easy</button>
           <button onClick={getmedium} className='rounded-md bg-cyan-600 px-2 text-white'>Med</button>
           <button onClick={gethard} className='rounded-md bg-cyan-800 px-2 text-white'>Hard</button>
+          <ArrowPathIcon onClick={fetchProblem} />
         </div>
         <div className='flex flex-row'>
           <input 
