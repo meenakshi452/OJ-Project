@@ -12,13 +12,18 @@ import { MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
 // const res = await axios.get(
 //   `http://localhost:7000/problems/problemList`
 // );
-const res = await fetch('https://oj-project-production.up.railway.app/problemList', {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-const problem = await (res.json());
+var problem
+const fetchProblem = async() =>  {
+  const res = await fetch('https://oj-project-production.up.railway.app/problemList', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+   problem = await (res.json());
+}
+fetchProblem();
+
 
 const handleDelete = async (id, e) => {
   e.preventDefault();
@@ -27,7 +32,7 @@ const handleDelete = async (id, e) => {
     // <Toaster/>
   }
   else {
-    const res = await fetch('http://localhost:8000/' + id, {
+    const res = await fetch('https://oj-project-production.up.railway.app/' + id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +69,7 @@ export default function ProblemsList() {
   }
 
   const geteasy = async () => {
-    const res = await fetch('http://localhost:8000/geteasy', {
+    const res = await fetch('https://oj-project-production.up.railway.app/geteasy', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +79,7 @@ export default function ProblemsList() {
     setProblems(x);
   }
   const getmedium = async () => {
-    const res = await fetch('http://localhost:8000/getmedium', {
+    const res = await fetch('https://oj-project-production.up.railway.app/getmedium', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +89,7 @@ export default function ProblemsList() {
     setProblems(x);
   }
   const gethard = async () => {
-    const res = await fetch('http://localhost:8000/gethard', {
+    const res = await fetch('https://oj-project-production.up.railway.app/gethard', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +103,7 @@ export default function ProblemsList() {
     if(!searchInput){
       toast.error("you cannot search empty name")
     }
-    const res = await fetch(`http://localhost:8000/search?q=${searchInput}`, {
+    const res = await fetch(`https://oj-project-production.up.railway.app/search?q=${searchInput}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -159,7 +164,7 @@ export default function ProblemsList() {
 
       </div>
       <div className=' p-8 mx-10 m-4 bg-cyan-600 rounded-xl max-w-6xl md:mx-20'>
-        {problems.map((problem) =>
+        {problems && problems.map((problem) =>
           <div key={problem._id} className=''>
             <div className='flex flex-row text-black  mx-auto mb-2 border-b bg-white/90 rounded-lg shadow-md'>
               <div className='basis-2/6 text-cyan-950 font-medium text-xl p-3 cursor-pointer' onClick={(e) => handleClick(problem._id, e)}>{problem.name}</div>
