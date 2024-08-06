@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 
-const response = await fetch('http://localhost:8000/profile', {
+const response = await fetch('https://oj-project-production.up.railway.app/profile', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',

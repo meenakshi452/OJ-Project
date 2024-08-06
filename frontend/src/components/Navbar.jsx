@@ -9,7 +9,7 @@ export default function Navbar() {
   useEffect( () => {
     const handleLogin = async () =>{
       const tok = localStorage.getItem("token")
-      const res = await fetch('http://localhost:8000/profile', {
+      const res = await fetch('https://oj-project-production.up.railway.app/profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export default function Navbar() {
   const handleSignout = async () => {
     localStorage.clear();
     localStorage.removeItem("token");
-    await fetch('http://localhost:8000/logout', {
+    await fetch('https://oj-project-production.up.railway.app/logout', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

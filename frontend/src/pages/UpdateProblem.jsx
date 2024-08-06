@@ -33,7 +33,7 @@ export default function ProblemCreate() {
         const fetchProblem = async () => {
           try {
             // const res = await axios.get(`http://localhost:8000/${id}`);
-            const response = await fetch('http://localhost:8000/' + id, {
+            const response = await fetch('https://oj-project-production.up.railway.app/' + id, {
               method: 'GET',
             });
             const res = await response.json();
@@ -59,7 +59,7 @@ export default function ProblemCreate() {
 
   const handleSubmit = async ({title, desc, difficulty, inputDesc, outputDesc, tags, testCases, tok}, e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:8000/'+id, {
+    const res = await fetch('https://oj-project-production.up.railway.app/'+id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

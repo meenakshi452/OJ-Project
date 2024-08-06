@@ -30,7 +30,7 @@ export default function ProblemCreate() {
     e.preventDefault();
 
     
-    const res = await fetch('http://localhost:8000/createProblem', {
+    const res = await fetch('https://oj-project-production.up.railway.app/createProblem', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

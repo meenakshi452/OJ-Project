@@ -21,7 +21,7 @@ export default function SignUp() {
   async function handleSubmit({name, email, password}, e){
     e.preventDefault();
     const formData = {name, email, password}
-    const res = await fetch('http://localhost:8000/signup', {
+    const res = await fetch('https://oj-project-production.up.railway.app/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

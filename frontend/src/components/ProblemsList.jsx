@@ -12,7 +12,7 @@ import { MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline';
 // const res = await axios.get(
 //   `http://localhost:7000/problems/problemList`
 // );
-const res = await fetch('http://localhost:8000/problemList', {
+const res = await fetch('https://oj-project-production.up.railway.app/problemList', {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',

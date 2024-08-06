@@ -35,7 +35,7 @@ int main() {
   useEffect(() => {
     const fetchProblem = async () => {
       try {
-        const res = await fetch('http://localhost:8000/' + id, {
+        const res = await fetch('https://oj-project-production.up.railway.app/' + id, {
           method: 'GET',
         });
         const prob = await res.json();
@@ -60,7 +60,7 @@ int main() {
     };
 
     try {
-      const res = await fetch('http://localhost:8000/run', {
+      const res = await fetch('https://oj-project-production.up.railway.app/run', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ int main() {
 
 
     try {
-      const res = await fetch('http://localhost:8000/'+id, {
+      const res = await fetch('https://oj-project-production.up.railway.app/'+id, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
