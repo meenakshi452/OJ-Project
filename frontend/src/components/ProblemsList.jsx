@@ -51,7 +51,7 @@ export default function ProblemsList() {
   const [problems, setProblems] = useState(problem);
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
-  setProblems(problem);
+  // setProblems(problem);
 
   const handleClick = async (id, e) => {
     e.preventDefault();
@@ -99,7 +99,7 @@ export default function ProblemsList() {
     const x = await res.json();
     setProblems(x);
   }
-<<<<<<< HEAD
+
   const getall = async () => {
     const res = await fetch('https://oj-project-production.up.railway.app/problemList', {
       method: 'GET',
@@ -110,11 +110,9 @@ export default function ProblemsList() {
     const x = await res.json();
     setProblems(x);
   }
-=======
   // const getall = async() => {
 
   // }
->>>>>>> f7a4a0d943d8d40ad0ee5fdd8d15485d25b448ad
 
   const handleSearch = async () => {
     if(!searchInput){
@@ -165,7 +163,7 @@ export default function ProblemsList() {
           <button onClick={geteasy} className='rounded-md bg-cyan-400 px-2 text-white'>Easy</button>
           <button onClick={getmedium} className='rounded-md bg-cyan-600 px-2 text-white'>Med</button>
           <button onClick={gethard} className='rounded-md bg-cyan-800 px-2 text-white'>Hard</button>
-          <ArrowPathIcon className='size-8' onClick={fetchProblem} />
+          <ArrowPathIcon className='size-8' onClick={getall} />
         </div>
         <div className='flex flex-row'>
           <input 
