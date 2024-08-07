@@ -66,7 +66,7 @@ export default function Navbar() {
                 Create Problem
               </button>
             </Link>
-            <button onClick={handleSignout} className='bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>
+            <button onClick={handleSignout} className=' bg-cyan-700/70 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>
               Signout
             </button>
           </div>
@@ -81,7 +81,7 @@ export default function Navbar() {
             </Link>
             <Link
               to="/signup"
-              className=" bg-cyan-700/50 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+              className="visible max-md:hidden   bg-cyan-700/50 py-2 px-4 rounded-md shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
             >
               Signup
             </Link>
