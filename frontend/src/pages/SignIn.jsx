@@ -66,7 +66,7 @@ export default function SignIn() {
       <div className='h-screen py-32'>
     <div className='p-3 max-w-lg mx-auto border rounded-lg border-transparent  bg-[#f6fcffc2] shadow-lg'>
       
-      <h1 className='text-3xl text-center font-semibold my-7 text-blue-500'>Sign In</h1>
+      <h1 className='text-3xl text-center font-semibold my-7 text-cyan-500'>Sign In</h1>
       
         
       
@@ -85,7 +85,7 @@ export default function SignIn() {
           onChange={handleChangePassword}
           className='bg-slate-100 p-3 rounded-lg hover:bg-slate-200'
         />
-        <button  type="submit" className='bg-blue-500 text-white font-semibold p-3 rounded-lg uppercase hover:opacity-95'>
+        <button  type="submit" className='bg-cyan-500 text-white font-semibold p-3 rounded-lg uppercase hover:opacity-95'>
           Sign In
         </button>
       </form>
@@ -94,7 +94,7 @@ export default function SignIn() {
           <p>New Here?</p>
         </Link>
         <Link to='/signup'>
-          <span className='text-blue-700 hover:opacity-85 cursor-pointer'>Register</span>
+          <span className='text-cyan-700 hover:opacity-85 cursor-pointer'>Register</span>
         </Link>
       </div>
       <p className='text-red-500'>{error ? error.message: ""}</p>
