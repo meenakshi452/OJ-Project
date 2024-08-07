@@ -20,7 +20,7 @@ const fetchProblem = async() =>  {
       'Content-Type': 'application/json',
     },
   });
-   problem = await (res.json());
+  problem = await (res.json());
 }
 fetchProblem();
 
@@ -51,6 +51,7 @@ export default function ProblemsList() {
   const [problems, setProblems] = useState(problem);
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState('');
+  setProblems(problem);
 
   const handleClick = async (id, e) => {
     e.preventDefault();
@@ -98,6 +99,9 @@ export default function ProblemsList() {
     const x = await res.json();
     setProblems(x);
   }
+  // const getall = async() => {
+
+  // }
 
   const handleSearch = async () => {
     if(!searchInput){
@@ -144,11 +148,11 @@ export default function ProblemsList() {
       </div> */}
       <div className='flex md:flex-row flex-col justify-between mx-10 md:mx-20 mt-10 gap-3'>
         <div className='flex flex-row gap-2 '>
-          <p className='text-xl text-cyan-800'>Sort By:</p>
+          <p className=' text-cyan-800'>Sort By:</p>
           <button onClick={geteasy} className='rounded-md bg-cyan-400 px-2 text-white'>Easy</button>
           <button onClick={getmedium} className='rounded-md bg-cyan-600 px-2 text-white'>Med</button>
           <button onClick={gethard} className='rounded-md bg-cyan-800 px-2 text-white'>Hard</button>
-          <ArrowPathIcon onClick={fetchProblem} />
+          <ArrowPathIcon className='size-8' onClick={fetchProblem} />
         </div>
         <div className='flex flex-row'>
           <input 
