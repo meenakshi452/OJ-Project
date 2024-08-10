@@ -160,10 +160,10 @@ export default function ProblemsList() {
       <div className='flex md:flex-row flex-col justify-between mx-10 md:mx-20 mt-10 gap-3'>
         <div className='flex flex-row gap-2 '>
           <p className=' text-cyan-800'>Sort By:</p>
-          <button onClick={geteasy} className='rounded-md bg-cyan-400 px-2 text-white'>Easy</button>
-          <button onClick={getmedium} className='rounded-md bg-cyan-600 px-2 text-white'>Med</button>
-          <button onClick={gethard} className='rounded-md bg-cyan-800 px-2 text-white'>Hard</button>
-          {/* <ArrowPathIcon className='size-8' onClick={getall} /> */}
+          <button onClick={geteasy} className='rounded-md bg-cyan-400 px-2 text-white shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>Easy</button>
+          <button onClick={getmedium} className='rounded-md bg-cyan-600 px-2 text-white shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>Med</button>
+          <button onClick={gethard} className='rounded-md bg-cyan-800 px-2 text-white shadow-md hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100'>Hard</button>
+          <ArrowPathIcon className='size-8 text-cyan-900 hover:bg-cyan-400' onClick={getall} />
         </div>
         <div className='flex flex-row'>
           <input 

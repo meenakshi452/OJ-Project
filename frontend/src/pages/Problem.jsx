@@ -68,7 +68,8 @@ int main() {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      setOutput(data.output);
+      data.success === true ? setOutput(data.output) : 
+        data.message.error ? setOutput(data.message.stderr): setOutput(data.message);
     } catch (error) {
       console.log(error.response);
     }
