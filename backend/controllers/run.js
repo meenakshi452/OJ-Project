@@ -118,7 +118,10 @@ const executePython = async (filePath, inputPath) => {
             console.log(inputPath);
             const output = await executeCpp(filePath, inputPath);
             console.log(output);
-            res.json({filePath, output})
+            res.json({
+                success: true,
+                filePath,
+                output})
         } catch (error) {
             res.status(500).json({
                 "success": false,
@@ -132,7 +135,10 @@ const executePython = async (filePath, inputPath) => {
             const filePath = await generateFile(language, code);
             const inputPath = await generateInputFile(input);
             const output = await executeC(filePath, inputPath);
-            res.json({filePath, output})
+            res.json({
+                success: true,
+                filePath,
+                output})
         } catch (error) {
             res.status(500).json({
                 "success": false,
@@ -145,7 +151,10 @@ const executePython = async (filePath, inputPath) => {
             const filePath = await generateFile(language, code);
             const inputPath = await generateInputFile(input);
             const output = await executePython(filePath, inputPath);
-            res.json({filePath, output})
+            res.json({
+                success: true,
+                filePath,
+                output})
         } catch (error) {
             res.status(500).json({
                 "success": false,
