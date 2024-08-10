@@ -20,12 +20,12 @@ export default function Navbar() {
       });
       const data = await res.json();
         // console.log(data);
-      if (data.success === true) {
+      // if (data.success === true) {
         setLoggedIn(true);
-      }
-      else{
-        setLoggedIn(false);
-      }
+      // }
+      // else{
+      //   setLoggedIn(false);
+      // }
     }
     handleLogin()
   }, []);
