@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 export default function Navbar() {
 
   const [loggedIn, setLoggedIn] = useState(false);
-  // useEffect( () => {
+  useEffect( () => {
     const handleLogin = async () =>{
       const tok = localStorage.getItem("token")
       const res = await fetch('https://oj-project-production.up.railway.app/profile', {
@@ -28,7 +28,7 @@ export default function Navbar() {
       // }
     }
     handleLogin()
-  // }, []);
+  }, []);
 
   const handleSignout = async () => {
     localStorage.clear();
